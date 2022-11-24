@@ -1,5 +1,7 @@
 import streamlit as st
 import json
+from PIL import Image
+
 
 
 def write_json(dictionary, file_):
@@ -13,11 +15,18 @@ def read_json(file):
 
 
 def main_page():
-    st.markdown("# Main page 🎈")
-    st.sidebar.markdown("# Main page 🎈")
+    image = Image.open('logo.jpg')
+
+    st.image(image, caption='Mais que um clube, uma família',width=200)
+    st.markdown("# Estoque de especialidades e classes ")
+    st.sidebar.markdown("# Início")
+    st.sidebar.markdown("Um dia essa página vai ficar bonita ")
 
 
 def page2():
+    st.sidebar.markdown("# Entradas e saídas de especialidades e classes")
+    st.sidebar.markdown("Apenas para atualizar o valor de estoque, caso não tenha a opção desejada é necessário fazer o cadastro na aba cadastro")
+
     classes = read_json('classes.json')
     especialidades = read_json('especialidades.json')
 
@@ -37,8 +46,10 @@ def page2():
 
             if classes[option] < 0:
                 classes[option] = 0
-            retirar = st.form_submit_button("Retirar")
+
             adicionar = st.form_submit_button("Adicionar")
+            retirar = st.form_submit_button("Retirar")
+
             if retirar:
                 classes[option] = classes[option] - qtd
                 write_json(classes, 'classes.json')
@@ -47,18 +58,23 @@ def page2():
                 classes[option] = classes[option] + qtd
                 write_json(classes, 'classes.json')
                 st.experimental_rerun()
+
     elif menu == 'Especialidades':
         option = st.selectbox('Especialidades', (x for x in especialidades))
         st.metric(label="Estoque", value=especialidades[option])
+
         if especialidades[option] <= 0:
             st.error("SEM ESTOQUE")
+
         with st.form("my_form"):
             qtd = st.number_input('Insert a number')
 
             if especialidades[option] < 0:
                 especialidades[option] = 0
-            subtrair = st.form_submit_button("Retirar")
+
             adicionar = st.form_submit_button("Adicionar")
+            subtrair = st.form_submit_button("Retirar")
+
             if subtrair:
                 especialidades[option] = especialidades[option] - qtd
                 write_json(especialidades, 'especialidades.json')
@@ -70,6 +86,9 @@ def page2():
 
 
 def page3():
+    st.sidebar.markdown("# Cadastro de novas especialidades e classes")
+    st.sidebar.markdown("Apenas para colocar especialidades que não tinhamos cadastradas ou remover especialidades que não existem mais")
+
     classes = read_json('classes.json')
     especialidades = read_json('especialidades.json')
 
@@ -143,12 +162,13 @@ def page3():
 
 
 if __name__ == "__main__":
-    st.set_page_config(layout="wide")
+    st.set_page_config(page_title='Pioneiros da Colina',layout="wide",page_icon='logo.jpg')
     page_names_to_funcs = {
-        "Main Page": main_page,
+        "Início": main_page,
         "Entradas e saídas": page2,
         "Cadastro": page3,
     }
-    selected_page = st.sidebar.selectbox("Select a page", page_names_to_funcs.keys())
+
+    selected_page = st.sidebar.selectbox("Navegação", page_names_to_funcs.keys())
     page_names_to_funcs[selected_page]()
 
