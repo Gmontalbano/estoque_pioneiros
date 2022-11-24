@@ -3,7 +3,6 @@ import json
 from PIL import Image
 
 
-
 def write_json(dictionary, file_):
     with open(f"{file_}", "w") as outfile:
         json.dump(dictionary, outfile)
@@ -17,7 +16,7 @@ def read_json(file):
 def main_page():
     image = Image.open('logo.jpg')
 
-    st.image(image, caption='Mais que um clube, uma família',width=200)
+    st.image(image, caption='Mais que um clube, uma família', width=200)
     st.markdown("# Vai dar tudo certo <3")
     st.sidebar.markdown("# Início")
     st.sidebar.markdown("Um dia essa página vai ficar bonita ")
@@ -25,7 +24,8 @@ def main_page():
 
 def page2():
     st.sidebar.markdown("# Entradas e saídas de especialidades e classes")
-    st.sidebar.markdown("Apenas para atualizar o valor de estoque, caso não tenha a opção desejada é necessário fazer o cadastro na aba cadastro")
+    st.sidebar.markdown("Apenas para atualizar o valor de estoque, caso não tenha a opção desejada é necessário fazer "
+                        "o cadastro na aba cadastro")
 
     classes = read_json('classes.json')
     especialidades = read_json('especialidades.json')
@@ -87,7 +87,8 @@ def page2():
 
 def page3():
     st.sidebar.markdown("# Cadastro de novas especialidades e classes")
-    st.sidebar.markdown("Apenas para colocar especialidades que não tinhamos cadastradas ou remover especialidades que não existem mais")
+    st.sidebar.markdown("Apenas para colocar especialidades que não tinhamos cadastradas ou remover especialidades "
+                        "que não existem mais")
 
     classes = read_json('classes.json')
     especialidades = read_json('especialidades.json')
