@@ -118,7 +118,7 @@ def page3():
         if option_to_do == 'Remover':
             with st.form("Remover"):
                 st.markdown("## Remover")
-                option = st.selectbox('Classe', (x for x in especialidades))
+                option = st.selectbox('Classe', (x for x in classes))
                 remove = st.form_submit_button("Remover")
                 if remove:
                     classes.pop(option)
