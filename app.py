@@ -18,7 +18,7 @@ def main_page():
     image = Image.open('logo.jpg')
 
     st.image(image, caption='Mais que um clube, uma família',width=200)
-    st.markdown("# Estoque de especialidades e classes ")
+    st.markdown("# Vai dar tudo certo <3")
     st.sidebar.markdown("# Início")
     st.sidebar.markdown("Um dia essa página vai ficar bonita ")
 
